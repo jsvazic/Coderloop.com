@@ -6,9 +6,10 @@
 (defn triangle-num [n]
   (/ (* n (+ n 1)) 2))
 
-(defn factors [n]
-  (for [x (range 2 (/ (+ n 1) 2)) :when (= 0 (mod n x))] [x]))
+; We're counting 1 and n already as factors, hence the reason we add 2 to the count.
+(defn num-factors [n]
+  (+ 2 (count (for [x (range 2 (/ (+ n 1) 2)) :when (= 0 (mod n x))] [x]))))
 	
-(println (factors 100))
+(println (num-factors 100))
   
 ;(def my-pow (Integer/valueOf (process-file (first *command-line-args*))))
