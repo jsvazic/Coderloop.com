@@ -1,0 +1,2 @@
+#!/bin/bash
+java -cp /usr/share/java/clojure.jar:/usr/share/java/mysql-5.1.10.jar clojure.main helloworlddb.clj $@
