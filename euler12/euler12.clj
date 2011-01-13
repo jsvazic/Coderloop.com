@@ -10,6 +10,6 @@
   (+ 2 (count (for [x (range 2 (/ (+ n 1) 2)) :when (= 0 (mod n x))] [x]))))
 	
 (defn euler12 [n]
-  (first (for [x (range 2 1000000) :when (< n (num-factors (triangle-num x)))] [triangle-num x])))
+  (first (for [x (range 2 1000000) :when (< n (num-factors (triangle-num x)))] [x])))
 
 (println (euler12 (Integer/valueOf (process-file (first *command-line-args*)))))
