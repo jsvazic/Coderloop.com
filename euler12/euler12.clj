@@ -6,13 +6,32 @@
 (defn triangle-num [n]
   (/ (* n (+ n 1)) 2))
 
-(defn num-factors [n]
-  (+ 2 (count (for [x (range 2 (/ (+ n 1) 2)) :when (= 0 (mod n x))] [x]))))
-	
+(defn sieve [n]
+  (let [n (int n)]
+    (let [root (int (Math/round (Math/floor (Math/sqrt n))))]
+      (loop [i (int 3)
+             a (int-array n)
+             result (list 2)]
+        (if (>= i n)
+          (reverse result)
+          (recur (+ i (int 2))
+                 (if (< i root)
+                   (loop [arr a
+                          inc (+ i i)
+                          j (* i i)]
+                     (if (>= j n)
+                       arr
+                       (recur (do (aset arr j (int 1)) arr)
+                              inc
+                              (+ j inc))))
+                   a)
+                 (if (zero? (aget a i))
+                   (conj result i)
+                   result)))))))
+  
 (defn euler12 [n]
-  (loop [curr 1]
-    (if (< n (num-factors (triangle-num curr)))
-	  (triangle-num curr)
-	  (recur (inc curr)))))
+  (sieve n)
+)
 
-(println (euler12 (Integer/valueOf (process-file (first *command-line-args*)))))
+;(println (euler12 (Integer/valueOf (process-file (first *command-line-args*)))))
+(println (euler12 28))
