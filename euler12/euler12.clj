@@ -28,10 +28,21 @@
                  (if (zero? (aget a i))
                    (conj result i)
                    result)))))))
-  
-(defn euler12 [n]
-  (sieve n)
-)
 
-;(println (euler12 (Integer/valueOf (process-file (first *command-line-args*)))))
-(println (euler12 28))
+(defn prime-factor-count [my-num factor]
+  (loop [exp 1]
+    (if (not= 0 (mod my-num (int (Math/pow factor exp))))
+	  (dec exp)
+	  (recur (inc exp)))))
+	  
+(defn factor-count [t-num min-factors]
+  (let [prime-factors (filter #(and (= 0 (mod t-num %)) (<= % t-num)) (sieve min-factors))]
+	(reduce * (map #(+ 1 (prime-factor-count t-num %)) prime-factors))))
+
+(defn euler12 [min-factors]
+  	(loop [curr 2 f-count 2]
+	  (if (> f-count min-factors)
+	    (triangle-num curr)
+	    (recur (inc curr) (factor-count (triangle-num (+ 1 curr)) min-factors)))))
+		
+(println (euler12 (Integer/valueOf (process-file (first *command-line-args*)))))
