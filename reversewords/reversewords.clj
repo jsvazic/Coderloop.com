@@ -4,9 +4,12 @@
     (line-seq rdr)))
 
 (defn reverse-words [line]
-  (let [my-words (re-seq #"\w+" line) my-seps (re-seq #"\W+" line)]
-    (if (nil? (re-seq #"^(\s)" line))
-      (apply str (interleave (doall (map #(apply str (reverse %)) my-words)) my-seps))
-	  (apply str (interleave my-seps (doall (map #(apply str (reverse %)) my-words)))))))
-	
+  (let [my-words (re-seq #"\w+" line)]
+    (loop [s line 
+	       my-col my-words]
+	  (if (empty? my-col)
+	    s
+		(recur (.replace s (apply str (first my-col)) (apply str (reverse (first my-col))))
+		       (rest my-col))))))
+
 (doall (map println (map reverse-words (process-file (first *command-line-args*)))))
