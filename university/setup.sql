@@ -1,20 +1,20 @@
 CREATE TABLE student (
   id BIGINT UNSIGNED NOT NULL UNIQUE,
-  name VARCHAR(25) NOT NULL,
-  surname VARCHAR(25) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  surname VARCHAR(50) NOT NULL,
   email VARCHAR(50),
-  faculty VARCHAR(25),
-  year_of_marticulation YEAR,
+  faculty VARCHAR(50) NOT NULL,
+  year YEAR NOT NULL,
   INDEX id_idx (id),
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
 CREATE TABLE professor (
-  name VARCHAR(25) NOT NULL,
-  surname VARCHAR(25) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  surname VARCHAR(50) NOT NULL,
   email VARCHAR(50) NOT NULL,
   phonenum VARCHAR (25),
-  faculty VARCHAR(25),
+  faculty VARCHAR(50) NOT NULL,
   ssn INT NOT NULL UNIQUE,
   INDEX ssn_idx (ssn),
   PRIMARY KEY (ssn)
@@ -22,12 +22,18 @@ CREATE TABLE professor (
 
 CREATE TABLE course (
    name VARCHAR(50) NOT NULL UNIQUE,
-   subject VARCHAR(25) NOT NULL,
-   credits INT(2),
-   prof_id INT,
+   subject VARCHAR(50) NOT NULL,
+   credits INT NOT NULL,
    INDEX name_idx (name),
-   INDEX prof_idx (prof_id),
-   PRIMARY KEY (name),
+   PRIMARY KEY (name)
+) ENGINE=INNODB;
+
+CREATE TABLE course_professor (
+   course_name VARCHAR(50) NOT NULL,
+   prof_id INT NOT NULL,
+   INDEX main_idx (course_name, prof_id),
+   PRIMARY KEY (course_name, prof_id),
+   FOREIGN KEY (course_name) REFERENCES course(name) ON DELETE CASCADE,
    FOREIGN KEY (prof_id) REFERENCES professor(ssn) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
