@@ -1,0 +1,4 @@
+#!/bin/bash
+MAINCLASS="Passrecovery"
+CP=".build/classes"
+java -cp "${CP}" ${MAINCLASS} "$*"
