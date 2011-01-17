@@ -32,16 +32,12 @@ CREATE TABLE course_professor (
    course_name VARCHAR(50) NOT NULL,
    prof_id INT NOT NULL,
    INDEX main_idx (course_name, prof_id),
-   PRIMARY KEY (course_name, prof_id),
-   FOREIGN KEY (course_name) REFERENCES course(name) ON DELETE CASCADE,
-   FOREIGN KEY (prof_id) REFERENCES professor(ssn) ON DELETE CASCADE
+   PRIMARY KEY (course_name, prof_id)
 ) ENGINE=INNODB;
 
 CREATE TABLE student_course (
    course_name VARCHAR(50) NOT NULL,
    student_id BIGINT UNSIGNED NOT NULL,
    INDEX course_idx (course_name),
-   INDEX student_idx (student_id),
-   FOREIGN KEY (course_name) REFERENCES course(name) ON DELETE CASCADE,
-   FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE
+   INDEX student_idx (student_id)
 ) ENGINE=INNODB;
