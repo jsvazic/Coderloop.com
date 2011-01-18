@@ -41,7 +41,11 @@ public class Passrecovery {
 					word1 + "0" + word2,
 					word1 + "2" + word2, 
 					word1 + "4" + word2,
-					word1 + "8" + word2 
+					word1 + "8" + word2,
+					word2 + "0" + word1,
+					word2 + "2" + word1, 
+					word2 + "4" + word1,
+					word2 + "8" + word1 
 				};
 		}
 		
