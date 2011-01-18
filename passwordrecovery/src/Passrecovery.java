@@ -13,7 +13,7 @@ public class Passrecovery {
 		while ((line = br.readLine()) != null) {
 			String[] arr = line.split("\\W");
 			for (String str : arr) {
-				if (str.length() < 6 && Pattern.matches("[a-zA-Z]+", str)) {
+				if (str.length() < 7 && Pattern.matches("[a-zA-Z]+", str)) {
 					words.add(str.toLowerCase());
 				}
 			}
