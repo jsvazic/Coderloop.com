@@ -19,9 +19,22 @@ public class Euler4 {
 		final long highVal = (long) (Math.pow(10, digits) - 1);
 		final long lowVal  = (long) (Math.pow(10, digits - 1));
 		
+		long l = highVal;
+		while ((l % 11) != 0) {
+			--l;
+		}
+		final long highModVal = l;
+		
 		long a = highVal;
+		long b, db;
 		while (a >= lowVal) {
-			long b = highVal;
+			if ((a % 11) == 0) {
+				b = highVal;
+				db = 1;
+			} else {
+				b = highModVal;
+				db = 11;
+			}
 			while (b >= a) {
 				BigInteger bigA = new BigInteger(String.valueOf(a));
 				BigInteger bigB = new BigInteger(String.valueOf(b));
@@ -32,7 +45,7 @@ public class Euler4 {
 				if (isPalindrome(product.toString())) {
 					largestPalindrome = product;
 				}
-				--b;
+				b -= db;
 			}
 			--a;
 		}
