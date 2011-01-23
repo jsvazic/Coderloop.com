@@ -1,0 +1,12 @@
+from_island             ship_at         to_island               function
+--------------------------------------------------------------------------------
+[bsd,linux,windows]     from            []                      (move "linux")
+[bsd,windows]           to              [linux]                 (sail-alone)
+[bsd,windows]           from            [linux]                 (move "bsd")
+[windows]               to              [bsd,linux]             (move "linux")
+[linux,windows]         from            [bsd]                   (move "windows")
+[linux]                 to              [bsd,windows]           (sail-alone)
+[linux]                 from            [bsd,windows]           (move "linux")
+[]                      to              [bsd,windows,linux]     ; Finished
+
+
