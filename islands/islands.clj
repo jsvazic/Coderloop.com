@@ -16,23 +16,23 @@
       (.connect))
     my-conn))
 
+(defn get-status []
+  (let [status-url "http://localhost:3000/ship/status"]
+    (read-content (open-connection status-url))))
+
 (defn move [survivor]
   (let [sail-url "http://localhost:3000/ship/sail?host="
         move-url (str sail-url survivor)
         result (read-content (open-connection move-url))]
     (if (and (:game_over result) (not (:won result)))
-      (println (check-status)))))
+      (println (get-status)))))
       
 (defn sail-alone []
   (let [sail-url "http://localhost:3000/ship/sail"
         result (read-content (open-connection sail-url))]
     (if (and (:game_over result) (not (:won result)))
-      (println (check-status)))))
-      
-(defn get-status []
-  (let [status-url "http://localhost:3000/ship/status"]
-    (read-content (open-connection sail-url))))
-      
+      (println (get-status)))))
+            
 (move "linux")
 (sail-alone)
 (move "bsd")
