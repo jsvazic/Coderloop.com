@@ -1,17 +1,12 @@
-(defn parse-line [line]
-    (let [tokens (.split (.toLowerCase line) " ")]
-        (map #(vector % 1) tokens)))
+(def s "baababacb")
+
+(defn get-tokens [n s]
+    (let [token-sum (fn [col] (reduce #(assoc %1 %2 (inc (get %1 %2 (int 0)))) {} col))]
+        (token-sum (doall (map #(apply str %) (partition n 1 s))))))
+
+(defn find-max-token [col]
+    (let [token-keys (keys col)
+	      max-token (fn [t1 t2] (if (>= (get col t1) (get col t2)) t1 t2))]
+        (reduce max-token token-keys)))
 		
-(defn combine [mapped]
-    (->> (group-by first mapped)
-         (map (fn [[k v]]
-                  {k (map second v)}))
-         (apply merge-with conj)))
-		 
-(defn sum [[k v]]
-    {k (apply + v)})
-
-(defn reduce-parsed-lines [collected-values]
-    (apply merge (map sum collected-values)))
-
-(print (get (reduce-parsed-lines (combine (parse-line "the quick brown fox jumped over the lazy dog"))) "the"))
+(println (find-max-token (get-tokens 3 s)))
